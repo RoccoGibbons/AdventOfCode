@@ -25,42 +25,54 @@ def inc_or_dec(arr):
     return "invalid"
 
 
-def repeats(arr):
-    buf = []
-    for i in range(len(arr)):
-        if arr[i] in buf:
-            arr.pop(i)
-            break
-        else:
-            buf.append(arr[i])
-    return inc_or_dec(arr)
+# def repeats(arr):
+#     new_arr = arr
+#     buf = []
+#     print(new_arr)
+#     for i in range(len(new_arr)):
+#         if new_arr[i] in buf:
+#             new_arr.pop(i)
+#             break
+#         else:
+#             buf.append(new_arr[i])
+#     print(new_arr)
+#     return inc_or_dec(new_arr)
 
-def direction(arr):
-    if arr[0] < arr[1]:
-        for i in range(len(arr) - 1):
-            if arr[i] > arr[i + 1]:
-                arr.pop(i)
-                break
-    elif arr[0] > arr[1]:
-        for i in range(len(arr) - 1):
-            if arr[i] < arr[i + 1]:
-                arr.pop(i)
-                break
-    return inc_or_dec(arr)
+# def direction(arr):
+#     new_arr = arr
+#     if new_arr[0] < new_arr[1]:
+#         for i in range(len(new_arr) - 1):
+#             if new_arr[i] > new_arr[i + 1]:
+#                 new_arr.pop(i)
+#                 break
+#     elif new_arr[0] > new_arr[1]:
+#         for i in range(len(new_arr) - 1):
+#             if new_arr[i] < new_arr[i + 1]:
+#                 new_arr.pop(i)
+#                 break
+#     return inc_or_dec(new_arr)
 
-def size(arr):
-    for i in range(len(arr) - 1):
-        if abs(arr[i] - arr[i+1]) < 1 or abs(arr[i] - arr[i+1]) > 3:
-            arr.pop(i)
-            break
-    return inc_or_dec(arr)
+# def size(arr):
+#     new_arr = arr
+#     for i in range(len(new_arr) - 1):
+#         if abs(new_arr[i] - new_arr[i+1]) < 1 or abs(new_arr[i] - new_arr[i+1]) > 3:
+#             new_arr.pop(i)
+#             break
+#     if inc_or_dec(new_arr) == "invalid":
+#         new_arr = arr
+#         for i in range(len(new_arr) - 1):
+#             if abs(new_arr[i] - new_arr[i+1]) < 1 or abs(new_arr[i] - new_arr[i+1]) > 3:
+#                 new_arr.pop(i + 1)
+#                 break
+#     return inc_or_dec(new_arr)
+
     
     
 #answer to previous part
-safe = 390
+safe = 0
 
 #Taking inputs from file
-with open("input2.txt", "r") as f:
+with open("input.txt", "r") as f:
     lines = f.readlines()
 
 
@@ -75,16 +87,30 @@ for line in lines:
             continue
         buf += char
     
+    if inc_or_dec(nums) == "valid":
+        safe+=1
+        continue
     
     #check for repeats
-    if repeats(nums) == "valid":
-        safe += 1
-    elif direction(nums) == "valid":
-        safe += 1
-    elif size(nums) == "valid":
-        safe += 1
+    # if repeats(nums) == "valid":
+    #     safe += 1
+    #     continue
+    # elif direction(nums) == "valid":
+    #     safe += 1
+    #     continue
+    # elif size(nums) == "valid":
+    #     safe += 1
+    #     continue
 
+    for i in range(len(nums)):
+        new = []
+        for num in nums:
+            new.append(num)
+        new.pop(i)
 
+        if inc_or_dec(new) == "valid":
+            safe += 1
+            break
 
 
 print(safe)
