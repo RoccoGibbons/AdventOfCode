@@ -1,4 +1,3 @@
-import itertools
 lines = []
 
 with open("input.txt", "r") as f:
