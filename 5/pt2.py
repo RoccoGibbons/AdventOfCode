@@ -1,3 +1,4 @@
+import itertools
 lines = []
 
 with open("input.txt", "r") as f:
@@ -51,28 +52,41 @@ for update in updates:
                 correct = False
         except KeyError:
             continue
-        
-
+    
+    if correct == True:
+        continue
+    
+    breakout = False
     if correct == False:
-        for i in range(len(rules)):
-            for j in range(len(rules)):
+        while breakout == False:
+            breakout = True
+            for rule in rules:
                 try:
-                    if update_dict[rules[i][0]] > update_dict[rules[i][1]]:
-                        print(update)
-                        index1 = update.index(rules[i][0])
-                        index2 = update.index(rules[i][1])
-                        
-                        temp = update[index1]
-                        update[index1] = update[index2]
-                        update[index2] = temp
-                        print(update)
+                    if update_dict[rule[0]] > update_dict[rule[1]]:
+                        temp = update_dict[rule[0]]
+                        update_dict[rule[0]] = update_dict[rule[1]]
+                        update_dict[rule[1]] = temp
+                        breakout = False
+                        break
+                    
                 except KeyError:
                     continue
-
+                
     for rule in rules:
         try:
             if update_dict[rule[0]] > update_dict[rule[1]]:
                 print("didn't work")
         except KeyError:
             continue
+        
+    length = len(update) + 1
+    middle = int(length / 2) - 1
+    # print(f"{update} => {update[middle]}\nlength:{length - 1} => middle:{middle}") 
+    for key in update_dict:
+        if update_dict[key] == middle:
+            total += key
+            break
+    
+print(total)
+    
 
