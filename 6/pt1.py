@@ -62,7 +62,7 @@ while True:
         break
     
 
-    print(current_pos, direction)
+    # print(current_pos, direction)
     distinct_pos.append([current_pos[0], current_pos[1]])
 
 
