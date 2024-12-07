@@ -73,4 +73,4 @@ for pos in distinct_pos:
     if pos not in no_dup_pos:
         no_dup_pos.append(pos)
 
-print(len(no_dup_pos) + 1) #the add 1 is because the list.append didn't include the last position
+print(len(no_dup_pos)) #the add 1 is because the list.append didn't include the last position

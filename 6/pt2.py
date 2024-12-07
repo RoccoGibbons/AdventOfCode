@@ -1,3 +1,4 @@
+import time
 with open("input.txt", "r") as f:
     positions_in = f.readlines()
 
@@ -7,13 +8,12 @@ for i in range(len(positions_in)):
         break
     for j in range(len(positions_in[i])):
         if positions_in[i][j] == "^":
-            start = [i, j]
+            start = (i, j)
             found = True
 
 stripped = []
 for row in positions_in:
     stripped.append(row.replace('\n',''))
-
 
 seen = 0
 for i in range(len(stripped)):
@@ -21,7 +21,8 @@ for i in range(len(stripped)):
         distinct_pos = []
         distinct_pos.append(start)
         direction = "up"
-        current_pos = start
+        current_pos = list(start)
+        # print(start)
 
         positions = []
         for row in range(len(stripped)):
@@ -30,10 +31,12 @@ for i in range(len(stripped)):
                 positions.append(new)
             else:
                 positions.append(stripped[row])
-
-
-
-
+                
+        # print('\n')
+        # for row in positions:
+        #     print(row)
+        
+        print(f"pass {i, j}")
         while True:
             if direction == "up":
                 if current_pos[0] - 1 < 0:
@@ -44,7 +47,7 @@ for i in range(len(stripped)):
                 current_pos[0] -= 1
 
             elif direction == "right":
-                if current_pos[1] + 1 >= len(positions[0]) -1:
+                if current_pos[1] + 1 >= len(positions[0]):
                     break
                 if positions[current_pos[0]][current_pos[1] + 1] not in  [".", "^"]:
                     direction = "down"
@@ -71,7 +74,12 @@ for i in range(len(stripped)):
                 print("something has gone wrong -> direction if statements")
                 break
             
-
-            distinct_pos.append([current_pos[0], current_pos[1]])
+            if [current_pos[0], current_pos[1], direction] in distinct_pos:
+                seen += 1
+                break
+            distinct_pos.append([current_pos[0], current_pos[1], direction])
+            
+        # print(distinct_pos)
+        # time.sleep(1)
 
 print(seen)
