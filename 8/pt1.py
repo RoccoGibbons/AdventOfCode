@@ -68,7 +68,7 @@ for antenna in positions_dict:
                     node2 = (x2, y2 - vertical)
                 elif y2 > y1:
                     node1 = (x1, y1 - vertical)
-                    node2 = (x2, y2 - vertical)
+                    node2 = (x2, y2 + vertical)
 
                     
             
