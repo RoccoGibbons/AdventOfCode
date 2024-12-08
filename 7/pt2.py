@@ -1,0 +1,66 @@
+import itertools
+
+with open("input.txt", "r") as f:
+    inputs = f.readlines()
+
+
+int_lists = []
+for line in inputs:
+    temp = ""
+    int_line = []
+    for letter in line:
+        if letter == ":" or letter == " " or letter == "\n":
+            if temp == "":
+                continue
+            int_line.append(int(temp))
+            temp = ""
+            continue
+        temp += letter
+    int_lists.append(int_line)
+
+total = 0
+
+
+for l in int_lists:
+    goal = l[0]
+    rest = l[1:]
+
+    operations = len(l) - 2
+    options = list(itertools.product("*+|", repeat=operations))
+    
+    for group in options:
+        rest_new = rest
+        skip = False
+        for i in range(len(group)):
+            if skip == True:
+                skip = False
+                continue
+            if group[i] == "|":
+                rest_new.append(int(str(rest[i]) + str(rest[i+1])))
+                skip = True
+            else:
+                rest_new.append(rest[i])
+        
+        count = 1
+        num = rest_new[0]
+        
+        
+        for o in group:
+            if o == "*":
+                if num * rest_new[count] > goal+ 1:
+                    break
+                num *= rest_new[count]
+                count += 1
+                
+            elif o == "+":
+                if num + rest_new[count] > goal+ 1:
+                    break
+                num += rest_new[count]
+                count += 1
+
+
+        if num == goal:
+            total += goal
+            break
+
+print(total)
