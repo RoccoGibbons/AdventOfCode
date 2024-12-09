@@ -20,6 +20,7 @@ exit_loop = True
 for i in range(len(formatted_disk_map)):
     if formatted_disk_map[i] == ".":
         for k in range(i + 1, len(formatted_disk_map)):     #not working am going to crash out
+            
             if formatted_disk_map[k] != ".":
                 exit_loop = False
         if exit_loop == True:
